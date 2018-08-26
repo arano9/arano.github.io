@@ -2,6 +2,9 @@ friend_links:
   - name: segmentfault
     desc: segmentfault
     link: https://segmentfault.com/u/vincent_blog/articles
+  - name: github
+    desc: github
+    link: https://github.com/Vincent9101
 
 build_tools:
   - name: Hexo
