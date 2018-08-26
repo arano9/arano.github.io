@@ -1,0 +1,9 @@
+friend_links:
+  - name: segmentfault
+    desc: segmentfault
+    link: https://segmentfault.com/u/vincent_blog/articles
+
+build_tools:
+  - name: Hexo
+    desc: Blog Framework
+    link: https://hexo.io/

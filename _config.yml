@@ -3,17 +3,20 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-keywords:
-author: John Doe
-language:
-timezone:
+title: Vincent
+subtitle: Vincent's blog
+description: Vincent's blog
+keywords: Vincent,blogs
+# 站长信息
+author:
+  name: Vincent 
+  link: https://github.com/Vincent9101
+language: zh-cn
+timezone: 
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://bloger.top
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -35,7 +38,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -73,9 +76,133 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: hexo-theme-skapp
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:Vincent9101/Vincent9101.github.io.git
+  branch: master
+# Sass
+node_sass:
+  outputStyle: nested
+  precision: 5
+  sourceComments: false
+
+# Autoprefixer
+autoprefixer:
+  exclude:
+    - '*.min.css'
+  browsers:
+    - 'last 2 versions'
+
+# Lunr
+lunr:
+  field: all
+  fulltext: false
+  path: assets/lunr/
+
+# filter_cleanup
+hfc_useref:
+  enable: true
+  concat: true
+
+hfc_html:
+  enable: true
+  exclude:
+
+hfc_css:
+  enable: true
+  exclude: 
+    - '*.min.css'
+
+hfc_js:
+  enable: true
+  mangle: true
+  exclude: 
+    - '*.min.js'
+
+hfc_img:
+  enable: false
+  interlaced: false
+  multipass: false
+  optimizationLevel: 2
+  pngquant: false
+  progressive: false
+
+hfc_favicons:
+  enable: false
+  src: img/blog-logo.png
+  target: img/
+  icons:
+    android: true
+    appleIcon: true
+    appleStartup: false
+    coast: false
+    favicons: true
+    firefox: false
+    opengraph: false
+    windows: true
+    yandex: false
+
+menu:
+  home: / 
+  archive: /archives
+  about: /about
+
+# banner显示的简短介绍
+subtitle_desc: better code,better life
+
+# 个人介绍
+introduction: Vincent's blog
+
+# 博客的favicon图标，支持本地及在线两种方式，本地请将图标放置于 themes/hexo-theme-skapp/source/img 目录下
+favicon_ico:  Vincent9101.github.io/img/favicon_ico.png
+
+# 博客的左上角logo图标，支持本地及在线两种方式
+logo: Vincent9101.github.io/img/logo-text-white.png
+    
+# 头像/二维码（用于显示在底部）二选一
+# avatar: http://oo12ugek5.bkt.clouddn.com/images/qrcode.png
+# qrcode: http://oo12ugek5.bkt.clouddn.com/images/qrcode.png
+
+# 文章的默认封面
+default_cover: http://oo12ugek5.bkt.clouddn.com/images/default_cover.png
+
+# header 的背景图
+header_cover: http://oo12ugek5.bkt.clouddn.com/blog/images/banner.jpeg
+
+# 404 页面的背景图
+error_page_bg: Vincent9101.github.io/img/404.jpg
+
+# 页面加载loading图标
+loader_img: http://oo12ugek5.bkt.clouddn.com/blog/images/loader.gif
+
+
+# 用于页面 footer 的站长信息
+about:
+  info: 
+  address: Nanjing, Jiangsu Province, China
+  email: vincent9101@qq.com
+# Gitalk
+gitTalk:
+  enable: true
+  clientId: 0339c5f4889ddbc6480d
+  clientSecret: 1cd958ef52eeebef50835c63e3bc839c533964c4
+  repo: Vincent9101.github.io
+  owner: Vincent9101
+  admin:
+    - Vincent9101
+  # Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+
+# Baidu statistic
+baidu_statistic: e3267498201dfa9699a5c509424709d6
