@@ -3,10 +3,6 @@ title: java设计模式
 date: 2018-08-23 14:45:47
 tags: java
 catagories: article
-
-
-
-
 cover: http://oxnuwmm3w.bkt.clouddn.com/hello-world.jpeg
 author: 
   nick: Vincent
@@ -59,12 +55,12 @@ subtitle: java设计模式
     
     
     实现demo结构如下图,实现demo代码点这里[这是我学习的时候写的demo][1]   
-	![factory_pattern](factory_pattern.png)
+	![factory_pattern](https://segmentfault.com/img/bVbfibS?w=560&h=325)
 
  - ### 抽象工厂模式（abstract factory pattern）
 
    这个模式是工厂的共工厂 叫超级工厂模式还比较贴切，在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。  
-    ![abstract_factory_pattern](abstract_factory_pattern.png)
+    ![abstract_factory_pattern](https://segmentfault.com/img/bVbfj40?w=560&h=437)
 
  - ### 单例模式（singleton pattern）    
  一个类负责创建自己的对象，同时确保只有单个对象被创建。这个类提供了一种访问其唯一的对象的方式，可以直接访问，不需要实例化该类的对象
