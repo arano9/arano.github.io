@@ -3,7 +3,7 @@ title: javaweb学习笔记二
 date: 2018-08-27 08:40:33
 tags: java
 catagories: article
-cover: http://oxnuwmm3w.bkt.clouddn.com/hello-world.jpeg
+cover: cover.jpg
 author: 
   nick: Vincent
   link: bloger.top
