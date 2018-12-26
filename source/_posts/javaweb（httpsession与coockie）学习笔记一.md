@@ -3,7 +3,7 @@ title: javaweb（httpsession与coockie）学习笔记一
 date: 2018-08-27 08:43:27
 tags: java
 catagories: article
-cover: http://oxnuwmm3w.bkt.clouddn.com/hello-world.jpeg
+cover: img/cover1.jpg
 author: 
   nick: Vincent
   link: bloger.top

@@ -3,7 +3,7 @@ title: javaweb学习笔记二
 date: 2018-08-27 08:40:33
 tags: java
 catagories: article
-cover: cover.jpg
+cover: img/cover2.jpg
 author: 
   nick: Vincent
   link: bloger.top

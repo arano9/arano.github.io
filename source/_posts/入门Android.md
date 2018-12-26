@@ -3,7 +3,7 @@ title: 入门Android
 date: 2018-09-02 09:00:33
 tags: java
 catagories: article
-cover: http://oxnuwmm3w.bkt.clouddn.com/hello-world.jpeg
+cover: img/cover4.jpg
 author: 
   nick: Vincent
   link: bloger.top

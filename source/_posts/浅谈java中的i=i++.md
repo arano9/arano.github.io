@@ -3,7 +3,7 @@ title: 浅谈java中的i=i++
 date: 2018-08-27 08:37:36
 tags: java
 catagories: article
-cover: cover.jpg
+cover: img/cover4.jpg
 author: 
   nick: Vincent
   link: bloger.top

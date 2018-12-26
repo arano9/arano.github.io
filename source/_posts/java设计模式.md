@@ -3,7 +3,7 @@ title: java设计模式
 date: 2018-08-23 14:45:47
 tags: java
 catagories: article
-cover: http://oxnuwmm3w.bkt.clouddn.com/hello-world.jpeg
+cover: img/cover3.jpg
 author: 
   nick: Vincent
   link: bloger.top
@@ -349,7 +349,7 @@ public enum Singleton_enum {
 # 待续。
 
 
-  [2]: 装饰器模式.jpg
-  [3]: 适配器器模式.jpg
-  [4]: 桥接模式.jpg
+  [4]: 装饰器模式.jpg
+  [2]: 适配器器模式.jpg
+  [3]: 桥接模式.jpg
   [5]: 代理模式.jpg
