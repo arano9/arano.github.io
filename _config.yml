@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Vincent
-subtitle: Vincent's blog
+title: 阿冉哦
+subtitle: Arano's blog
 description: stay hungry,stay foolish
-keywords: Vincent,blogs
-author: Vincent
+keywords: Arano,blogs
+author: 阿冉哦
 language: zh-Hans
 timezone:
 
@@ -80,7 +80,7 @@ theme: hexo-theme-next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:Vincent9101/Vincent9101.github.io.git
+  repo: git@github.com:arano9/arano.github.io.git
   branch: master
 
 search:
