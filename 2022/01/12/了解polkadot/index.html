@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Android,">
+  <meta name="keywords" content="blockchain,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Dagger2概念介绍为什么需要依赖注入？基于控制反转概念的依赖注入。这说明一个类应该从外部获得它的依赖。简单来说，没有类应该实例化另一个类，但应该从配置类中获取实例。列如java类通过new运算符创建另一个类的实例，则它不能独立该类使用和测试，即硬依赖。 从类外部提供依赖有什么好处呢？增加了重用类的可能性，且能独立于其它类测试它们。 如何实现DI(依赖注入)？一个名为依赖容器的框架类用于分析类的">
-<meta name="keywords" content="Android">
+<meta name="description" content="波卡polkadot是一条基于substrate创建的主链，又称为中继链为与其连接的平行链，提供安全性，流通性parachain 平行链与波卡连接的其他链，他们可以有自己的方式产生区块shared security1. 验证者出块，且不出快的验证者会受到惩罚 平行链也间隔性的发送候选区块，中继链会将该区块也提交到中继链中  forkless upgrades and governanceon-ch">
+<meta name="keywords" content="blockchain">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简说Dagger2">
-<meta property="og:url" content="http://bloger.top/2019/03/16/简说Dagger2/index.html">
+<meta property="og:title" content="了解polkadot">
+<meta property="og:url" content="http://bloger.top/2022/01/12/了解polkadot/index.html">
 <meta property="og:site_name" content="阿冉哦">
-<meta property="og:description" content="Dagger2概念介绍为什么需要依赖注入？基于控制反转概念的依赖注入。这说明一个类应该从外部获得它的依赖。简单来说，没有类应该实例化另一个类，但应该从配置类中获取实例。列如java类通过new运算符创建另一个类的实例，则它不能独立该类使用和测试，即硬依赖。 从类外部提供依赖有什么好处呢？增加了重用类的可能性，且能独立于其它类测试它们。 如何实现DI(依赖注入)？一个名为依赖容器的框架类用于分析类的">
+<meta property="og:description" content="波卡polkadot是一条基于substrate创建的主链，又称为中继链为与其连接的平行链，提供安全性，流通性parachain 平行链与波卡连接的其他链，他们可以有自己的方式产生区块shared security1. 验证者出块，且不出快的验证者会受到惩罚 平行链也间隔性的发送候选区块，中继链会将该区块也提交到中继链中  forkless upgrades and governanceon-ch">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-16T13:31:33.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/arano9/pic-host/main/img/polkadot.png">
+<meta property="og:updated_time" content="2022-01-12T08:51:38.318Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简说Dagger2">
-<meta name="twitter:description" content="Dagger2概念介绍为什么需要依赖注入？基于控制反转概念的依赖注入。这说明一个类应该从外部获得它的依赖。简单来说，没有类应该实例化另一个类，但应该从配置类中获取实例。列如java类通过new运算符创建另一个类的实例，则它不能独立该类使用和测试，即硬依赖。 从类外部提供依赖有什么好处呢？增加了重用类的可能性，且能独立于其它类测试它们。 如何实现DI(依赖注入)？一个名为依赖容器的框架类用于分析类的">
+<meta name="twitter:title" content="了解polkadot">
+<meta name="twitter:description" content="波卡polkadot是一条基于substrate创建的主链，又称为中继链为与其连接的平行链，提供安全性，流通性parachain 平行链与波卡连接的其他链，他们可以有自己的方式产生区块shared security1. 验证者出块，且不出快的验证者会受到惩罚 平行链也间隔性的发送候选区块，中继链会将该区块也提交到中继链中  forkless upgrades and governanceon-ch">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/arano9/pic-host/main/img/polkadot.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://bloger.top/2019/03/16/简说Dagger2/">
+  <link rel="canonical" href="http://bloger.top/2022/01/12/了解polkadot/">
 
 
 
 
 
-  <title>简说Dagger2 | 阿冉哦</title>
+  <title>了解polkadot | 阿冉哦</title>
   
 
 
@@ -253,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bloger.top/2019/03/16/简说Dagger2/">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2022/01/12/了解polkadot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阿冉哦">
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">简说Dagger2</h1>
+          <h1 class="post-title" itemprop="name headline">了解polkadot</h1>
         
 
         <div class="post-meta">
@@ -282,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T15:07:06+08:00">
-                2019-03-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-12T16:49:54+08:00">
+                2022-01-12
               </time>
             
 
@@ -342,19 +344,16 @@
       
 
       
-        <h1 id="Dagger2概念介绍"><a href="#Dagger2概念介绍" class="headerlink" title="Dagger2概念介绍"></a>Dagger2概念介绍</h1><h2 id="为什么需要依赖注入？"><a href="#为什么需要依赖注入？" class="headerlink" title="为什么需要依赖注入？"></a>为什么需要依赖注入？</h2><p>基于控制反转概念的依赖注入。这说明一个类应该从外部获得它的依赖。简单来说，没有类应该实例化另一个类，但应该从配置类中获取实例。<br>列如java类通过new运算符创建另一个类的实例，则它不能独立该类使用和测试，即<strong>硬依赖</strong>。</p>
-<h2 id="从类外部提供依赖有什么好处呢？"><a href="#从类外部提供依赖有什么好处呢？" class="headerlink" title="从类外部提供依赖有什么好处呢？"></a>从类外部提供依赖有什么好处呢？</h2><p>增加了重用类的可能性，且能独立于其它类测试它们。</p>
-<h2 id="如何实现DI-依赖注入-？"><a href="#如何实现DI-依赖注入-？" class="headerlink" title="如何实现DI(依赖注入)？"></a>如何实现DI(依赖注入)？</h2><p>一个名为依赖容器的框架类用于分析类的依赖关系。通过此分析，它能够创建类的实例，并通过Java Reflections将对象注入定义的依赖项中。这消除了硬依赖性。这样，这个项目可以单独测试。<br>需要注意的是，Reflection是很慢的，其次，它用于在运行时执行依赖项解析容易意外崩溃。<br><strong>于是Dagger2就是为了解决这一问题……</strong><br>Dagger 2带来的巨大变化是使用注释处理器生成依赖图。现在使用javax inject包在构建时生成提供依赖项的类。这有助于在应用程序运行之前进行可能的错误检查。生成的代码具有高可读性，就像手写一样。<br><em>注释构建器是一种在构建期间读取已编译文件以生成要在项目中使用的源代码文件的方法。</em><br><strong>依赖性使用者通过连接器向依赖性提供者请求依赖性（Object）。</strong></p>
-<ol>
-<li><strong>依赖提供程序</strong>：带有注释的类@Module负责提供可以注入的对象。这些类定义了注释的方法@Provides。这些方法返回的对象可用于依赖注入。  </li>
-<li><strong>依赖消费</strong>：该@Inject注解用于定义的依赖。  </li>
-<li><strong>连接消费者和生产者</strong>：@Component注释的接口定义对象（模块）和表达的依赖关系的对象的提供者之间的连接。此连接的类由Dagger生成。  </li>
+        <h1 id="波卡"><a href="#波卡" class="headerlink" title="波卡"></a>波卡</h1><h2 id="polkadot是一条基于substrate创建的主链，又称为中继链"><a href="#polkadot是一条基于substrate创建的主链，又称为中继链" class="headerlink" title="polkadot是一条基于substrate创建的主链，又称为中继链"></a>polkadot是一条基于substrate创建的主链，又称为中继链</h2><h3 id="为与其连接的平行链，提供安全性，流通性"><a href="#为与其连接的平行链，提供安全性，流通性" class="headerlink" title="为与其连接的平行链，提供安全性，流通性"></a>为与其连接的平行链，提供安全性，流通性</h3><h2 id="parachain-平行链"><a href="#parachain-平行链" class="headerlink" title="parachain 平行链"></a>parachain 平行链</h2><h3 id="与波卡连接的其他链，他们可以有自己的方式产生区块"><a href="#与波卡连接的其他链，他们可以有自己的方式产生区块" class="headerlink" title="与波卡连接的其他链，他们可以有自己的方式产生区块"></a>与波卡连接的其他链，他们可以有自己的方式产生区块</h3><h2 id="shared-security"><a href="#shared-security" class="headerlink" title="shared security"></a>shared security</h2><h3 id="1-验证者出块，且不出快的验证者会受到惩罚"><a href="#1-验证者出块，且不出快的验证者会受到惩罚" class="headerlink" title="1. 验证者出块，且不出快的验证者会受到惩罚"></a>1. 验证者出块，且不出快的验证者会受到惩罚</h3><ol start="2">
+<li>平行链也间隔性的发送候选区块，中继链会将该区块也提交到中继链中</li>
 </ol>
-<h2 id="Dagger的不足"><a href="#Dagger的不足" class="headerlink" title="Dagger的不足"></a>Dagger的不足</h2><ol>
-<li>Dagger不会自动注入字段。</li>
-<li>不能注入私有字段。</li>
-<li>使用字段注入，必须在带@Component注释的接口中定义一个方法，该方法接受要注入成员变量的类的实例。</li>
-</ol>
+<h2 id="forkless-upgrades-and-governance"><a href="#forkless-upgrades-and-governance" class="headerlink" title="forkless upgrades and governance"></a>forkless upgrades and governance</h2><h3 id="on-chain-runtime"><a href="#on-chain-runtime" class="headerlink" title="on-chain runtime"></a>on-chain runtime</h3><ul>
+<li>生成新区块的逻辑的代码放置于链上</li>
+</ul>
+<h3 id="on-chain-governance"><a href="#on-chain-governance" class="headerlink" title="on-chain governance"></a>on-chain governance</h3><ul>
+<li>任何持有DOT的用户可以进行公投，根据投票情况polkadot自动升级更新</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/arano9/pic-host/main/img/polkadot.png" alt="polkadot"></p>
 
       
     </div>
@@ -372,7 +371,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># Android</a>
+            <a href="/tags/blockchain/" rel="tag"># blockchain</a>
           
         </div>
       
@@ -385,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/Android-MVP架构/" rel="next" title="Android_MVP架构">
-                <i class="fa fa-chevron-left"></i> Android_MVP架构
+              <a href="/2021/12/21/OlympusDao/" rel="next" title="OlympusDao">
+                <i class="fa fa-chevron-left"></i> OlympusDao
               </a>
             
           </div>
@@ -394,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/02/认识REST/" rel="prev" title="认识REST">
-                认识REST <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -547,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dagger2概念介绍"><span class="nav-number">1.</span> <span class="nav-text">Dagger2概念介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要依赖注入？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么需要依赖注入？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从类外部提供依赖有什么好处呢？"><span class="nav-number">1.2.</span> <span class="nav-text">从类外部提供依赖有什么好处呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现DI-依赖注入-？"><span class="nav-number">1.3.</span> <span class="nav-text">如何实现DI(依赖注入)？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dagger的不足"><span class="nav-number">1.4.</span> <span class="nav-text">Dagger的不足</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#波卡"><span class="nav-number">1.</span> <span class="nav-text">波卡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#polkadot是一条基于substrate创建的主链，又称为中继链"><span class="nav-number">1.1.</span> <span class="nav-text">polkadot是一条基于substrate创建的主链，又称为中继链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为与其连接的平行链，提供安全性，流通性"><span class="nav-number">1.1.1.</span> <span class="nav-text">为与其连接的平行链，提供安全性，流通性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parachain-平行链"><span class="nav-number">1.2.</span> <span class="nav-text">parachain 平行链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与波卡连接的其他链，他们可以有自己的方式产生区块"><span class="nav-number">1.2.1.</span> <span class="nav-text">与波卡连接的其他链，他们可以有自己的方式产生区块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-security"><span class="nav-number">1.3.</span> <span class="nav-text">shared security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-验证者出块，且不出快的验证者会受到惩罚"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 验证者出块，且不出快的验证者会受到惩罚</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forkless-upgrades-and-governance"><span class="nav-number">1.4.</span> <span class="nav-text">forkless upgrades and governance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#on-chain-runtime"><span class="nav-number">1.4.1.</span> <span class="nav-text">on-chain runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#on-chain-governance"><span class="nav-number">1.4.2.</span> <span class="nav-text">on-chain governance</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
