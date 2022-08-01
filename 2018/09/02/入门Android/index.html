@@ -448,7 +448,7 @@
 </li>
 </ol>
 <h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p><img src="activity_lifecycle.png" alt="生命周期"></p>
-<h4 id="启动Activity"><a href="#启动Activity" class="headerlink" title="启动Activity"></a>启动Activity</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, MyActivity.class);</span><br><span class="line"><span class="comment">// 这里可以传参, 支持基本数据类型, Bundle, Parcelable序列化数据, 数组</span></span><br><span class="line">intent.putExtra(<span class="string">"media_id"</span>, <span class="string">"a1b2c3"</span>);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"><span class="comment">// 如果需要返回值</span></span><br><span class="line"><span class="comment">// startActivityForResult(intent, requestCode);</span></span><br></pre></td></tr></table></figure>
+<h4 id="启动Activity"><a href="#启动Activity" class="headerlink" title="启动Activity"></a>启动Activity</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, MyActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="comment">// 这里可以传参, 支持基本数据类型, Bundle, Parcelable序列化数据, 数组</span></span><br><span class="line">intent.putExtra(<span class="string">"media_id"</span>, <span class="string">"a1b2c3"</span>);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">startActivity(intent);</span><br><span class="line"><span class="comment">// 如果需要返回值</span></span><br><span class="line"><span class="comment">// startActivityForResult(intent, requestCode);</span></span><br></pre></td></tr></table></figure>
 <h4 id="片段-Fragment"><a href="#片段-Fragment" class="headerlink" title="片段 (Fragment)"></a>片段 (Fragment)</h4><p><code>Fragment</code> 表示 <code>Activity</code> 中的行为或用户界面部分。您可以将多个片段组合在一个 Activity 中来构建多窗格 UI，以及在多个 Activity 中重复使用某个片段。您可以将片段视为 Activity 的模块化组成部分，它具有自己的生命周期，能接收自己的输入事件，并且您可以在 Activity 运行时添加或移除片段（有点像您可以在不同 Activity 中重复使用的“子 Activity”）。</p>
 <p>Android 在 Android 3.0（API 级别 11）中引入了片段，主要是为了给大屏幕（如平板电脑）上更加动态和灵活的 UI 设计提供支持。下图是个新闻应用:</p>
 <p><img src="fragments.png" alt="Fragments"></p>
@@ -879,13 +879,13 @@
             <div class="links-of-author motion-element">
                 
                   <span class="links-of-author-item">
-                    <a href="https://github.com/arano9" target="_blank" title="GitHub">
+                    <a href="https://github.com/aranoverse" target="_blank" title="GitHub">
                       
                         <i class="fa fa-fw fa-github"></i>GitHub</a>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:arano@foxmail.com" target="_blank" title="E-Mail">
+                    <a href="mailto:aranoverse@outlook.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
