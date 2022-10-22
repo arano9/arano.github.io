@@ -123,5 +123,5 @@ categories: note
 - oralce relayer : monitor 一些在bsc的事件，广播交易到bc上，relayer 需要有验证者的私钥权限，每个validator一个relayer服务
 - 激励机制：
 
-![bsc](https://raw.githubusercontent.com/arano9/pic-host/main/img/bsc.png)
+![bsc](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/bsc.png)
 

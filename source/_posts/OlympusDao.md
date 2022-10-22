@@ -72,4 +72,4 @@ OHM价格 = 1 Dai + premium(溢价)
 
 - OHM价格=1Dai+premium(溢价)
 
-![OlympusDao](https://raw.githubusercontent.com/arano9/pic-host/main/img/OlympusDao.png)
+![OlympusDao](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/OlympusDao.png)

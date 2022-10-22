@@ -20,7 +20,7 @@ tags: rabbitmq
 
 铲子模式就是一个插件，可用于跨网络，异地mq之间的数据备份，数据同步，工作模式如下图：
 
-![image-20210512101447783](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512101447783-0785695.png)
+![image-20210512101447783](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512101447783-0785695.png)
 
 实质即shovel插件将远端broker中的que拉过来到交换机进行分发。
 
@@ -31,7 +31,7 @@ tags: rabbitmq
 - 联邦交换器：使用federation link 可以将上游远端的交换机信息给放到本地队列中，给本地消费者使用
 - 联邦队列：其实类似于前者，只不过可以直接从上游que中拿到消息同步。
 
-![image-20210512110720303](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512110720303-0788843.png)
+![image-20210512110720303](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512110720303-0788843.png)
 
 
 
@@ -54,7 +54,7 @@ tags: rabbitmq
 下图中简要解释了构造（略写了其他数据），大致意思指在通过node1访问que-b的时候，会路由到node2，通过node2访问que-a会路由到node1，作为代理的角色。
 
 
-![image-20210512140505941](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512140505941.png)
+![image-20210512140505941](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512140505941.png)
 
 ### 镜像队列模式
 
@@ -64,7 +64,7 @@ tags: rabbitmq
 
 下图中三个节点之间都有其队列的slave备份，通过冗余队列保持其高可用
 
-![image-20210512142506435](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512142506435.png)
+![image-20210512142506435](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512142506435.png)
 
 ### 仲裁队列模式
 
@@ -214,12 +214,12 @@ rabbitmqctl start_app
 
 可看到management中node情况
 
-![image-20210512160412605](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512160412605.png)
+![image-20210512160412605](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512160412605.png)
 
 创建一个demo测试情况，通过mq_2创建队列结果mq_1,mq_3都有队列，通过mq_1发送消息，可以从mq_2消费，说明集群创建成功。
 
-![image-20210512161313339](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512161313339.png)
+![image-20210512161313339](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512161313339.png)
 
-![image-20210512161419964](https://raw.githubusercontent.com/arano9/pic-host/main/img/image-20210512161419964.png)
+![image-20210512161419964](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/image-20210512161419964.png)
 
 后续HAProxy+Keepalived可以再结合配置一下使用。使用上的区别在于，有统一HAproxy ip做负载均衡

@@ -25,7 +25,7 @@ categories: note
 1. clone 系统合约项目（官方地址：git@github.com:binance-chain/bsc-genesis-contract.git ，下列仓库有做过验证者集合genesis-validator.js 支持docker编译的优化）
 
    ```shell
-   git clone git@github.com:arano9/bsc-genesis-contract.git
+   git clone git@github.com:aranoverse/bsc-genesis-contract.git
    ```
 
 2. init_holder.js：该文件初始化创世区块中的账户资产持有情况。

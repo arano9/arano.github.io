@@ -35,4 +35,4 @@ author:
 
 - 任何持有DOT的用户可以进行公投，根据投票情况polkadot自动升级更新
 
-![polkadot](https://raw.githubusercontent.com/arano9/pic-host/main/img/polkadot.png)
+![polkadot](https://raw.githubusercontent.com/aranoverse/pic-host/main/img/polkadot.png)
