@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="database,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis使用入门Redis数据结构redis支持的数据类型：    string（字符串）    string是redis基本数据类型，一个key对应一个value，最大可以存储512MB   是二进制安全的，可以包含任何数据，比如图片比如序列化对象  使用如下：1234redis 127.0.0.1:6379&amp;gt; SET testkey&quot; testValue&quot;OKredis 127.0.0">
+<meta name="keywords" content="database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis学习入门">
+<meta property="og:url" content="http://bloger.top/2018/09/19/redis学习入门/index.html">
+<meta property="og:site_name" content="阿冉">
+<meta property="og:description" content="Redis使用入门Redis数据结构redis支持的数据类型：    string（字符串）    string是redis基本数据类型，一个key对应一个value，最大可以存储512MB   是二进制安全的，可以包含任何数据，比如图片比如序列化对象  使用如下：1234redis 127.0.0.1:6379&amp;gt; SET testkey&quot; testValue&quot;OKredis 127.0.0">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-08-25T11:01:14.434Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis学习入门">
+<meta name="twitter:description" content="Redis使用入门Redis数据结构redis支持的数据类型：    string（字符串）    string是redis基本数据类型，一个key对应一个value，最大可以存储512MB   是二进制安全的，可以包含任何数据，比如图片比如序列化对象  使用如下：1234redis 127.0.0.1:6379&amp;gt; SET testkey&quot; testValue&quot;OKredis 127.0.0">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bloger.top/2018/09/19/redis学习入门/">
+
+
+
+
+
+  <title>redis学习入门 | 阿冉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿冉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Arano's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/19/redis学习入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿冉">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿冉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis学习入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-19T23:50:36+08:00">
+                2018-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis使用入门"><a href="#Redis使用入门" class="headerlink" title="Redis使用入门"></a>Redis使用入门</h1><h2 id="Redis数据结构"><a href="#Redis数据结构" class="headerlink" title="Redis数据结构"></a>Redis数据结构</h2><p>redis支持的数据类型：  </p>
+<ul>
+<li>string（字符串）   <ol>
+<li>string是redis<strong>基本数据类型</strong>，一个key对应一个value，最大可以存储512MB  </li>
+<li><strong>是二进制安全的</strong>，可以包含任何数据，比如图片比如序列化对象 </li>
+<li>使用如下：<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; <span class="built_in">SET</span> testkey" testValue"</span><br><span class="line">OK</span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; GET testKey</span><br><span class="line">"testValue"</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>Hash（哈希）  </p>
+<ol>
+<li>是键值对key-&gt;value的集合  </li>
+<li>即string类型的filed和value的映射表，适合存储对象。</li>
+<li>使用如下：  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; HMSET myhash testfield1 "testValue" testField2 "testValue2"</span><br><span class="line">"OK"</span><br><span class="line">redis&gt; HGET myhash testField1</span><br><span class="line">"testValue"</span><br><span class="line">```  </span><br><span class="line">- List(列表)  </span><br><span class="line">就是简单的字符串列表，但是可以方便地添加在列表头或者尾。使用如下：  </span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; lpush testList element1</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; lpush testList element2</span><br><span class="line">(integer) <span class="number">2</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; lpush testList element3</span><br><span class="line">(integer) <span class="number">3</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; lrange runoob <span class="number">0</span> <span class="number">4</span></span><br><span class="line"><span class="number">1</span>) "element3"</span><br><span class="line"><span class="number">2</span>) "element2"</span><br><span class="line"><span class="number">3</span>) "element1"</span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt;</span><br><span class="line">```  </span><br><span class="line">- <span class="built_in">Set</span>(集合)  </span><br><span class="line">    string类型的无序集合通过哈希表实现，时间复杂度都是O(<span class="number">1</span>),使用如下：  </span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; sadd test redis</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; sadd test mongodb</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; smembers test</span><br><span class="line"><span class="number">1</span>) "redis"</span><br><span class="line"><span class="number">2</span>) "mongodb"</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>zSet(sorted set: 有序集合)<br>  与set的区别主要在于有序，每一个元素都会关联一个double对类型的分数，redis通过这个分数为集合中的成员进行升序排序，其中的成员必须唯一的，但是其分数（score）却是可以重复的，以下查看使用区别：  </p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; zadd testZset <span class="number">0</span> redis</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; zadd testZset <span class="number">0</span> mongodb</span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; &gt; ZRANGEBYSCORE testZset <span class="number">0</span> <span class="number">1000</span></span><br><span class="line"><span class="number">1</span>) "mongodb"</span><br><span class="line"><span class="number">3</span>) "redis"</span><br><span class="line">```  </span><br><span class="line">## Redis命令  </span><br><span class="line">redis命令需要redis客户端环境才可以使用。其客户端语法为：</span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line">redis-cli //此命令即可进入redis客户端环境</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在远程服务上使用命令  </p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h host -p port -a password//该形式即利用redis-cli客户端远程使用其他主机的redis服务</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有许多关乎集合的命令网上的手册。</p>
+</li>
+</ul>
+<h3 id="redis-HyPerLogLog"><a href="#redis-HyPerLogLog" class="headerlink" title="redis HyPerLogLog"></a>redis HyPerLogLog</h3><p>用于做基数统计的算法，优点是在输入元素的数量或者体积特别大的时候，计算基数所偶需要的空间总是固定的，并且很小。HyperLogLog只会根据输入元素来计算基数，而不会存储输入元素本身，所以不能返回各个元素。使用如下：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PFADD runoobkey "redis"</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>) (integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PFADD runoobkey "mongodb"</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>) (integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PFADD runoobkey "mysql"</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>) (integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PFCOUNT runoobkey</span><br></pre></td></tr></table></figure></p>
+<h3 id="redis-发布订阅"><a href="#redis-发布订阅" class="headerlink" title="redis 发布订阅"></a>redis 发布订阅</h3><p>Redis 发布订阅(pub/sub)是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息。</p>
+<p>Redis 客户端可以订阅任意数量的频道。使用如下：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">//首先订阅redisChat频道</span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; SUBSCRIBE redisChat</span><br><span class="line"></span><br><span class="line">Reading messages... (press Ctrl-C to quit)</span><br><span class="line"><span class="number">1</span>) "subscribe"</span><br><span class="line"><span class="number">2</span>) "redisChat"</span><br><span class="line"><span class="number">3</span>) (integer) <span class="number">1</span>  </span><br><span class="line"></span><br><span class="line">//重开一个redis客户端，然后在同一频道redisChat发布两次消息，订阅者就额可以收到</span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PUBLISH redisChat "Redis is a great caching technique"</span><br><span class="line"></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; PUBLISH redisChat "Learn redis by runoob.com"</span><br><span class="line"></span><br><span class="line">(integer) <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//订阅者的客户端会显示如下消息</span><br><span class="line"><span class="number">1</span>) "message"</span><br><span class="line"><span class="number">2</span>) "redisChat"</span><br><span class="line"><span class="number">3</span>) "Redis is a great caching technique"</span><br><span class="line"><span class="number">1</span>) "message"</span><br><span class="line"><span class="number">2</span>) "redisChat"</span><br><span class="line"><span class="number">3</span>) "Learn redis by runoob.com"</span><br><span class="line">```  </span><br><span class="line">### redis事务</span><br><span class="line"><span class="number">1</span>. 批量操作在发送 EXEC 命令前被放入队列缓存。</span><br><span class="line"><span class="number">2</span>. 收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行。</span><br><span class="line"><span class="number">3</span>. 在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中</span><br><span class="line"><span class="number">4</span>. 使用如下：</span><br><span class="line">```<span class="built_in">cmd</span></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; MULTI</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; <span class="built_in">SET</span> book-name "Mastering C++ <span class="keyword">in</span> <span class="number">21</span> days"</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; GET book-name</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; SADD tag "C++" "Programming" "Mastering Series"</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; SMEMBERS tag</span><br><span class="line">QUEUED</span><br><span class="line"></span><br><span class="line">redis <span class="number">127</span>.<span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">6379</span>&gt; EXEC</span><br><span class="line"><span class="number">1</span>) OK</span><br><span class="line"><span class="number">2</span>) "Mastering C++ <span class="keyword">in</span> <span class="number">21</span> days"</span><br><span class="line"><span class="number">3</span>) (integer) <span class="number">3</span></span><br><span class="line"><span class="number">4</span>) <span class="number">1</span>) "Mastering Series"</span><br><span class="line">   <span class="number">2</span>) "C++"</span><br><span class="line">   <span class="number">3</span>) "Programming"</span><br></pre></td></tr></table></figure></p>
+<p><strong>值得注意的是虽然单个redis的命令执行是原子性的，但是其事务却不是原子性的</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/database/" rel="tag"># database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/常用身份验证机制/" rel="next" title="常用身份验证机制">
+                <i class="fa fa-chevron-left"></i> 常用身份验证机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/20/浅谈websocket/" rel="prev" title="浅谈websocket">
+                浅谈websocket <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="阿冉">
+            
+              <p class="site-author-name" itemprop="name">阿冉</p>
+              <p class="site-description motion-element" itemprop="description">stay hungry,stay foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/aranoverse" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aranoverse@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis使用入门"><span class="nav-number">1.</span> <span class="nav-text">Redis使用入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">Redis数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-HyPerLogLog"><span class="nav-number">1.1.1.</span> <span class="nav-text">redis HyPerLogLog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-发布订阅"><span class="nav-number">1.1.2.</span> <span class="nav-text">redis 发布订阅</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿冉</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
