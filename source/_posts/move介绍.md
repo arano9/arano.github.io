@@ -346,3 +346,5 @@ module hello_aptos::counter {
 [GitHub - aptos-labs/aptos-core: A layer 1 for everyone!](https://github.com/aptos-labs/aptos-core)
 
 [GitHub - aranoverse/hello-aptos: Hello world on  Aptos](https://github.com/aranoverse/hello-aptos)
+
+[move介绍和简明开发案例 - YouTube](https://www.youtube.com/watch?v=EQWC3wq3wtY)
