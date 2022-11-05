@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="blockchain move aptos,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="move背景move 是由 Diem 项目 专门为区块链开发的一种安全可靠的智能合约编程语言 ,目前主要使用move语言开发智能合约的链有 Sui  ，Aptos ，Starcoin  move对比solidity存储模型 12345678910111213141516171819struct GlobalStorage &amp;#123;  resources: Map&amp;lt;(address, Re">
+<meta name="keywords" content="blockchain move aptos">
+<meta property="og:type" content="article">
+<meta property="og:title" content="move介绍">
+<meta property="og:url" content="http://bloger.top/2022/10/22/move介绍/index.html">
+<meta property="og:site_name" content="阿冉">
+<meta property="og:description" content="move背景move 是由 Diem 项目 专门为区块链开发的一种安全可靠的智能合约编程语言 ,目前主要使用move语言开发智能合约的链有 Sui  ，Aptos ，Starcoin  move对比solidity存储模型 12345678910111213141516171819struct GlobalStorage &amp;#123;  resources: Map&amp;lt;(address, Re">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/move_background.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/move_state.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/solidity_state.png">
+<meta property="og:updated_time" content="2022-11-05T08:30:12.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="move介绍">
+<meta name="twitter:description" content="move背景move 是由 Diem 项目 专门为区块链开发的一种安全可靠的智能合约编程语言 ,目前主要使用move语言开发智能合约的链有 Sui  ，Aptos ，Starcoin  move对比solidity存储模型 12345678910111213141516171819struct GlobalStorage &amp;#123;  resources: Map&amp;lt;(address, Re">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/move_background.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bloger.top/2022/10/22/move介绍/">
+
+
+
+
+
+  <title>move介绍 | 阿冉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿冉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Arano's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2022/10/22/move介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿冉">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿冉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">move介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-10-22T13:09:00+08:00">
+                2022-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="move背景"><a href="#move背景" class="headerlink" title="move背景"></a>move背景</h1><p>move 是由 <a href="https://diem.com/" target="_blank" rel="noopener">Diem 项目</a> 专门为区块链开发的一种安全可靠的智能合约编程语言 ,目前主要使用move语言开发智能合约的链有 <a href="https://sui.io/" target="_blank" rel="noopener">Sui</a>  ，<a href="https://aptoslabs.com/" target="_blank" rel="noopener">Aptos</a> ，<a href="https://starcoin.org" target="_blank" rel="noopener">Starcoin</a></p>
+<p><img title src="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/move_background.png" alt></p>
+<h1 id="move对比solidity"><a href="#move对比solidity" class="headerlink" title="move对比solidity"></a>move对比solidity</h1><h2 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h2><p><img src="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/move_state.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">struct GlobalStorage &#123;</span><br><span class="line">  resources: Map&lt;(address, ResourceType), ResourceValue&gt;</span><br><span class="line">  modules: Map&lt;(address, ModuleName), ModuleBytecode&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Operators </span><br><span class="line">move_to&lt;T&gt;(&amp;signer,T)    </span><br><span class="line">move_from&lt;T&gt;(address): T    </span><br><span class="line">borrow_global_mut&lt;T&gt;(address): &amp;mut T    </span><br><span class="line">borrow_global&lt;T&gt;(address): &amp;T </span><br><span class="line">exists&lt;T&gt;(address): bool  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">module 0x1::coin::Coin&lt;0x666::alpha_module::aranoverse&gt;</span><br><span class="line"></span><br><span class="line">struct Coin&lt;phantom CoinType&gt; has store &#123;</span><br><span class="line">        /// Amount of coin this address has.</span><br><span class="line">        value: u64,</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/aranoverse/pic-host/main/blog/move_diff_from_solidity/solidity_state.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">contract Alpha&#123;</span><br><span class="line">    mapping(address=&gt;uint256) balance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Beta&#123;</span><br><span class="line">    mapping(uint256=&gt;address) ownerships;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="面向资源"><a href="#面向资源" class="headerlink" title="面向资源"></a>面向资源</h2><p>move 使用drop store key copy这样一些关键字赋予资源各种能力（ability），实现了数据的<strong>资源属性</strong>，使其不再是单纯的一个uint,一个struct</p>
+<p>key代表可以作为全局存储中的索引，一般和address组合查询</p>
+<p>drop代表该数据可以在未转移的情况下丢弃</p>
+<p>store 代表存储结构</p>
+<p>copy 赋予资源快速拷贝的能力，比如权限之类的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// @see module aptos_framework::coin</span><br><span class="line">struct CoinStore&lt;phantom CoinType&gt; has key &#123;</span><br><span class="line">        coin: Coin&lt;CoinType&gt;,</span><br><span class="line">        frozen: bool,</span><br><span class="line">        deposit_events: EventHandle&lt;DepositEvent&gt;,</span><br><span class="line">        withdraw_events: EventHandle&lt;WithdrawEvent&gt;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">module hello_aptos::resource &#123;</span><br><span class="line">    #[test_only]</span><br><span class="line">    use aptos_framework::account;</span><br><span class="line">    #[test_only]</span><br><span class="line">    use aptos_framework::coin;</span><br><span class="line">    #[test_only]</span><br><span class="line">    use aptos_framework::managed_coin;</span><br><span class="line"></span><br><span class="line">    struct Aranoverse &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #[test(manager = @hello_aptos)]</span><br><span class="line">    fun test_mint(manager: address)&#123;</span><br><span class="line">        let signer = account::create_account_for_test(manager);</span><br><span class="line">        managed_coin::initialize&lt;Aranoverse&gt;(&amp;signer, b&quot;Aranoverse&quot;, b&quot;AVT&quot;, 18, true);</span><br><span class="line"></span><br><span class="line">        coin::register&lt;Aranoverse&gt;(&amp;signer);</span><br><span class="line">        assert!(coin::is_coin_initialized&lt;Aranoverse&gt;(), 1);</span><br><span class="line"></span><br><span class="line">        managed_coin::mint&lt;Aranoverse&gt;(&amp;signer, manager, 100000000000);</span><br><span class="line">        assert!(coin::balance&lt;Aranoverse&gt;(manager) == 100000000000, 2);</span><br><span class="line"></span><br><span class="line">        // Could not compile , Cannot ignore values without the &apos;drop&apos; ability. The value must be used</span><br><span class="line">        // let _coin_resource = coin::withdraw&lt;Aranoverse&gt;(&amp;signer, 100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ERC20部分代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function _transfer(</span><br><span class="line">    address from,</span><br><span class="line">    address to,</span><br><span class="line">    uint256 amount</span><br><span class="line">) internal virtual &#123;</span><br><span class="line">    require(from != address(0), &quot;ERC20: transfer from the zero address&quot;);</span><br><span class="line">    require(to != address(0), &quot;ERC20: transfer to the zero address&quot;);</span><br><span class="line"></span><br><span class="line">    _beforeTokenTransfer(from, to, amount);</span><br><span class="line"></span><br><span class="line">    uint256 fromBalance = _balances[from];</span><br><span class="line">    require(fromBalance &gt;= amount, &quot;ERC20: transfer amount exceeds balance&quot;);</span><br><span class="line">    unchecked &#123;</span><br><span class="line">        _balances[from] = fromBalance - amount;</span><br><span class="line">    &#125;</span><br><span class="line">     // 如果这里的amount不进行加减</span><br><span class="line">    _balances[to] += amount;</span><br><span class="line"></span><br><span class="line">    emit Transfer(from, to, amount);</span><br><span class="line"></span><br><span class="line">    _afterTokenTransfer(from, to, amount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一句话来讲move 提供的 ability ，限定了<strong>资源必须被处理</strong> 这样的一个语境</p>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><ol>
+<li><p>逻辑复用</p>
+</li>
+<li><p>安全复用</p>
+</li>
+<li><p>真正的协议标准复用，但是丢失了一定的灵活性</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">struct Aranoverse &#123;&#125;</span><br><span class="line"></span><br><span class="line">managed_coin::initialize&lt;Aranoverse&gt;(&amp;signer, b&quot;Aranoverse&quot;, b&quot;AVT&quot;, 18, true);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">contract Aranoverse is ERC20&#123;</span><br><span class="line">    constructor()ERC20(&quot;Aranoverse&quot;,&quot;AVT&quot;)&#123;&#125;</span><br><span class="line"></span><br><span class="line">  // Todo: self-defined logic</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="形式化验证"><a href="#形式化验证" class="headerlink" title="形式化验证"></a>形式化验证</h2><p>简单来说可以认为是运行前断言以及运行后断言，可以保证运行的正确性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">module hello_aptos::counter &#123;</span><br><span class="line">    struct Counter has key &#123;</span><br><span class="line">        value: u8,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public fun increment(addr: address) acquires Counter &#123;</span><br><span class="line">        let r = borrow_global_mut&lt;Counter&gt;(addr);</span><br><span class="line">        r.value = r.value + 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    spec increment &#123;</span><br><span class="line">        // increment运行前</span><br><span class="line">        let conter = global&lt;Counter&gt;(addr).value;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        // increment运行后</span><br><span class="line">        let post conter_post = global&lt;Counter&gt;(addr).value;</span><br><span class="line">        // 断言数据</span><br><span class="line">        ensures conter_post == conter + 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自带测试框架"><a href="#自带测试框架" class="headerlink" title="自带测试框架"></a>自带测试框架</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#[test(signer = @hello_aptos)]</span><br><span class="line">  public fun test_increment(signer: &amp;signer) acquires Counter &#123;</span><br><span class="line">      increment(signer);</span><br><span class="line">      let counter_log_1 = counter(address_of(signer));</span><br><span class="line">      increment(signer);</span><br><span class="line">      let counter_log_2 = counter(address_of(signer));</span><br><span class="line">      assert!(counter_log_1 + 1 == counter_log_2, 1);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="move-on-Aptos-简要开发示例"><a href="#move-on-Aptos-简要开发示例" class="headerlink" title="move on Aptos 简要开发示例"></a>move on Aptos 简要开发示例</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ol>
+<li><p>rust 环境    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>aptos cli</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo install --git https://github.com/aptos-labs/aptos-core.git aptos  --tag  aptos-cli-v1.0.0</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="move-开发"><a href="#move-开发" class="headerlink" title="move 开发"></a>move 开发</h2><ol>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建项目</span></span><br><span class="line">mkdir hello-aptos &amp;&amp; cd hello-aptos &amp;&amp; aptos move init --name hello-aptos</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 初始化 rpc 以及 account</span></span><br><span class="line">aptos init</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// sources/hello_aptos.move</span><br><span class="line"></span><br><span class="line">module hello_aptos::message3 &#123;</span><br><span class="line">    use std::error;</span><br><span class="line">    use std::signer;</span><br><span class="line">    use std::string;</span><br><span class="line"></span><br><span class="line">    use aptos_framework::account;</span><br><span class="line">    use aptos_framework::event;</span><br><span class="line"></span><br><span class="line">    struct MessageHolder has key &#123;</span><br><span class="line">        message: string::String,</span><br><span class="line">        message_change_events: event::EventHandle&lt;MessageChangeEvent&gt;,</span><br><span class="line">    &#125;</span><br><span class="line">    //&lt;:!:resource</span><br><span class="line"></span><br><span class="line">    struct MessageChangeEvent has drop, store &#123;</span><br><span class="line">        from_message: string::String,</span><br><span class="line">        to_message: string::String,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const ENO_MESSAGE: u64 = 0;</span><br><span class="line"></span><br><span class="line">    public fun get_message(addr: address): string::String acquires MessageHolder &#123;</span><br><span class="line">        assert!(exists&lt;MessageHolder&gt;(addr), error::not_found(ENO_MESSAGE));</span><br><span class="line">        *&amp;borrow_global&lt;MessageHolder&gt;(addr).message</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public entry fun set_message(account: signer, message: string::String)</span><br><span class="line">    acquires MessageHolder &#123;</span><br><span class="line">        let account_addr = signer::address_of(&amp;account);</span><br><span class="line">        if (!exists&lt;MessageHolder&gt;(account_addr)) &#123;</span><br><span class="line">            move_to(&amp;account, MessageHolder &#123;</span><br><span class="line">                message,</span><br><span class="line">                message_change_events: account::new_event_handle&lt;MessageChangeEvent&gt;(&amp;account),</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            let old_message_holder = borrow_global_mut&lt;MessageHolder&gt;(account_addr);</span><br><span class="line">            let from_message = *&amp;old_message_holder.message;</span><br><span class="line">            event::emit_event(&amp;mut old_message_holder.message_change_events, MessageChangeEvent &#123;</span><br><span class="line">                from_message,</span><br><span class="line">                to_message: copy message,</span><br><span class="line">            &#125;);</span><br><span class="line">            old_message_holder.message = message;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>   }          </p>
+<ol start="4">
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// tests/hello_aptos_test.move</span><br><span class="line"> #[test_only]</span><br><span class="line">module hello_aptos::message_tests &#123;</span><br><span class="line">    use std::signer;</span><br><span class="line">    use std::unit_test;</span><br><span class="line">    use std::vector;</span><br><span class="line">    use std::string;</span><br><span class="line"></span><br><span class="line">    use hello_aptos::message3;</span><br><span class="line"></span><br><span class="line">    fun get_account(): signer &#123;</span><br><span class="line">        vector::pop_back(&amp;mut unit_test::create_signers_for_testing(1))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #[test]</span><br><span class="line">    public entry fun sender_can_set_message() &#123;</span><br><span class="line">        let account = get_account();</span><br><span class="line">        let addr = signer::address_of(&amp;account);</span><br><span class="line">        aptos_framework::account::create_account_for_test(addr);</span><br><span class="line">        message3::set_message(account,  string::utf8(b&quot;Hello, Aptos&quot;));</span><br><span class="line"></span><br><span class="line">        assert!(</span><br><span class="line">            message3::get_message(addr) == string::utf8(b&quot;Hello, Aptos&quot;),</span><br><span class="line">            0</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">'hello-aptos'</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">'1.0.0'</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies.AptosFramework]</span></span><br><span class="line"><span class="attr">git</span> = <span class="string">'https://github.com/aptos-labs/aptos-core.git'</span></span><br><span class="line"><span class="attr">rev</span> = <span class="string">'main'</span></span><br><span class="line"><span class="attr">subdir</span> = <span class="string">'aptos-move/framework/aptos-framework'</span></span><br><span class="line"></span><br><span class="line"><span class="section">[addresses]</span></span><br><span class="line"><span class="attr">hello_aptos</span> = <span class="string">"0x000b2e79cbfbf4bb872769c53fae1827f460016893aafb678c90fa2437ae6c96"</span></span><br><span class="line"><span class="attr">aptos_framwork</span>= <span class="string">"0x1"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aptos move test</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aptos move publish --named-addresses hello_aptos=0x000b2e79cbfbf4bb872769c53fae1827f460016893aafb678c90fa2437ae6c96</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aptos move run \</span><br><span class="line"> --function-id 'default::message3::set_message' \</span><br><span class="line"> --args 'string:hello, atptos'</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request GET 'https://fullnode.devnet.aptoslabs.com/v1/accounts/&#123;YOUR_ACCOUNT&#125;/resource/&#123;YOUR_ACCOUNT&#125;::message3::MessageHolder'</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="文献与代码"><a href="#文献与代码" class="headerlink" title="文献与代码"></a>文献与代码</h1><p><a href="https://move-language.github.io/move/" target="_blank" rel="noopener">The Move Book</a></p>
+<p><a href="https://github.com/move-language/move/blob/main/language/move-prover/doc/user/spec-lang.md" target="_blank" rel="noopener">move/spec-lang.md at main · move-language/move · GitHub</a></p>
+<p><a href="https://github.com/aptos-labs/aptos-core" target="_blank" rel="noopener">GitHub - aptos-labs/aptos-core: A layer 1 for everyone!</a></p>
+<p><a href="https://github.com/aranoverse/hello-aptos" target="_blank" rel="noopener">GitHub - aranoverse/hello-aptos: Hello world on  Aptos</a></p>
+<p><a href="https://www.youtube.com/watch?v=EQWC3wq3wtY" target="_blank" rel="noopener">move介绍和简明开发案例 - YouTube</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/blockchain-move-aptos/" rel="tag"># blockchain move aptos</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/08/25/区块链安全收录/" rel="next" title="区块链安全收录">
+                <i class="fa fa-chevron-left"></i> 区块链安全收录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="阿冉">
+            
+              <p class="site-author-name" itemprop="name">阿冉</p>
+              <p class="site-description motion-element" itemprop="description">stay hungry,stay foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/aranoverse" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aranoverse@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#move背景"><span class="nav-number">1.</span> <span class="nav-text">move背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#move对比solidity"><span class="nav-number">2.</span> <span class="nav-text">move对比solidity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储模型"><span class="nav-number">2.1.</span> <span class="nav-text">存储模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向资源"><span class="nav-number">2.2.</span> <span class="nav-text">面向资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型"><span class="nav-number">2.3.</span> <span class="nav-text">泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化验证"><span class="nav-number">2.4.</span> <span class="nav-text">形式化验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自带测试框架"><span class="nav-number">2.5.</span> <span class="nav-text">自带测试框架</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#move-on-Aptos-简要开发示例"><span class="nav-number">3.</span> <span class="nav-text">move on Aptos 简要开发示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">3.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#move-开发"><span class="nav-number">3.2.</span> <span class="nav-text">move 开发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文献与代码"><span class="nav-number">4.</span> <span class="nav-text">文献与代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿冉</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

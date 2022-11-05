@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="blockchain,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="bsc共识目标 确定区块更少，大多情况不会有分叉 出块时间快于ethereum1.0  &amp;lt;=5s 没有通胀，区块奖励就是交易gas fee 与以太坊一样兼容 拥有和cosmos一样的质押和治理  实施 bc为bsc做质押与治理 bsc保持类似clique系统的PoA  架构 bc通过质押程序进行选取流程，来决定bsc的validators bsc validators 验证交易以及出块，确保">
+<meta name="keywords" content="blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bsc小结">
+<meta property="og:url" content="http://bloger.top/2021/11/18/bsc小结/index.html">
+<meta property="og:site_name" content="阿冉">
+<meta property="og:description" content="bsc共识目标 确定区块更少，大多情况不会有分叉 出块时间快于ethereum1.0  &amp;lt;=5s 没有通胀，区块奖励就是交易gas fee 与以太坊一样兼容 拥有和cosmos一样的质押和治理  实施 bc为bsc做质押与治理 bsc保持类似clique系统的PoA  架构 bc通过质押程序进行选取流程，来决定bsc的validators bsc validators 验证交易以及出块，确保">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/img/bsc.png">
+<meta property="og:updated_time" content="2022-10-22T05:23:58.896Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bsc小结">
+<meta name="twitter:description" content="bsc共识目标 确定区块更少，大多情况不会有分叉 出块时间快于ethereum1.0  &amp;lt;=5s 没有通胀，区块奖励就是交易gas fee 与以太坊一样兼容 拥有和cosmos一样的质押和治理  实施 bc为bsc做质押与治理 bsc保持类似clique系统的PoA  架构 bc通过质押程序进行选取流程，来决定bsc的validators bsc validators 验证交易以及出块，确保">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/aranoverse/pic-host/main/img/bsc.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bloger.top/2021/11/18/bsc小结/">
+
+
+
+
+
+  <title>bsc小结 | 阿冉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿冉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Arano's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2021/11/18/bsc小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿冉">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿冉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">bsc小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-18T21:25:15+08:00">
+                2021-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="bsc"><a href="#bsc" class="headerlink" title="bsc"></a>bsc</h1><h2 id="共识"><a href="#共识" class="headerlink" title="共识"></a>共识</h2><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><ul>
+<li>确定区块更少，大多情况不会有分叉</li>
+<li>出块时间快于ethereum1.0  &lt;=5s</li>
+<li>没有通胀，区块奖励就是交易gas fee</li>
+<li>与以太坊一样兼容</li>
+<li>拥有和cosmos一样的质押和治理</li>
+</ul>
+<h3 id="实施"><a href="#实施" class="headerlink" title="实施"></a>实施</h3><ul>
+<li>bc为bsc做质押与治理</li>
+<li>bsc保持类似clique系统的PoA</li>
+</ul>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><ul>
+<li>bc通过质押程序进行选取流程，来决定bsc的validators</li>
+<li>bsc validators 验证交易以及出块，确保网络安全以及账本一致性，获得 gas fee作为奖励</li>
+<li><p>staking dapp on bsc（system contract）</p>
+<ul>
+<li>light client contract：仅用于验证bc tendermint 共识状态验证</li>
+<li>cross chain contract：跨链沟通层，验证 跨链包的merkle proof 以及sequence</li>
+<li><p>bsc validator contract: watcher of bsc validators change on bc，存储验证集的奖励gas fee，分发验证集改变的跨链包奖励</p>
+<ul>
+<li><p>handleSynPackage(uint8, bytes calldata msgBytes)</p>
+</li>
+<li><p>CurrentValidator() returns ([]address)：返回没有被标记监禁的验证者</p>
+</li>
+<li>deposit(address valAddr) external：分发奖励给验证者</li>
+</ul>
+</li>
+<li><p>system reward contract：奖励中继者维护系统的合约</p>
+<ul>
+<li>claimRewards(address payable to, uint256 amount) external：转账bnb</li>
+</ul>
+</li>
+<li><p>liveness slash contract：记录验证者错过的区块指标，一旦指标超过阈值，出块奖励被更好的验证节点共享</p>
+<ul>
+<li>Slash(validator address) external：<br>1、验证者 missing block 指标+1<br>2、如果指标到了50将使用 bsc validator contract的函数 将奖励分发给其他验证者<br>3、如果指标到达了150 不仅调用函数分发奖励，并且将该验证者剔除验证者集合中</li>
+</ul>
+</li>
+<li><p>other contract：提供 bc的治理功能给bsc使用</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="奖励分发：高度可配置"><a href="#奖励分发：高度可配置" class="headerlink" title="奖励分发：高度可配置"></a>奖励分发：高度可配置</h3><ul>
+<li><p>奖励规则：全部来源于transaction fee</p>
+<ul>
+<li>出块的validator可收到15/16 of gas fee</li>
+<li>system reward contract:收到 1/16 of gas fee(如果持有余额大于100BNB将不会得到)</li>
+</ul>
+</li>
+</ul>
+<h3 id="协议：与clique协议类似（https-ethereum-magicians-org-t-eip-225-clique-proof-of-authority-consensus-protocol-1853）"><a href="#协议：与clique协议类似（https-ethereum-magicians-org-t-eip-225-clique-proof-of-authority-consensus-protocol-1853）" class="headerlink" title="协议：与clique协议类似（https://ethereum-magicians.org/t/eip-225-clique-proof-of-authority-consensus-protocol/1853）"></a>协议：与clique协议类似（<a href="https://ethereum-magicians.org/t/eip-225-clique-proof-of-authority-consensus-protocol/1853）" target="_blank" rel="noopener">https://ethereum-magicians.org/t/eip-225-clique-proof-of-authority-consensus-protocol/1853）</a></h3><ul>
+<li><p>key diff feature</p>
+<ul>
+<li>light client security：利用epoch（200 blocks）+N/2 保证轻量级客户端的安全性</li>
+<li>system transaction： 共识系统调用sys contract生成的交易，由验证者签名，见证节点也会生成交易（无签名）与其比对然后应用</li>
+<li>enfore backoff：避免验证者为获奖励而急于出块，过早出块将会被见证节点丢弃</li>
+</ul>
+</li>
+</ul>
+<h3 id="产生新区块"><a href="#产生新区块" class="headerlink" title="产生新区块"></a>产生新区块</h3><ul>
+<li>prepare:<br>1、load snapshot<br>2、If (height % epoch)==0, fetch validators from bscValidatorSet contract<br>3、store validator-set-msg with extraData the filed of block header<br>4、conbase addr：validator’s addr</li>
+<li>finalize and assemble<br>1、如果验证者不是该轮的验证者，调用slash contract生成slash交易<br>2、如果有gas fee，分发1/16 system reward contract 剩余的奖励验证者</li>
+<li>seal 签戳 before broadcast<br>1、sign in block header ，添加签名到extraData<br>2、非该轮的验证者签名，诚实的验证者会随机等待一会儿</li>
+</ul>
+<h3 id="验证-中继-区块"><a href="#验证-中继-区块" class="headerlink" title="验证/中继 区块"></a>验证/中继 区块</h3><ul>
+<li>验证block header<br>1、验证signature of coinbase<br>2、验证区块时间是否比期望时间小，可以阻止自私的验证者急于打包<br>3、coinbase 应该是signer 难度应该是期望值</li>
+<li>finalize<br>1、如果是epoch block，验证者会从验证集中比较 extra data<br>2、如果区块不是这轮验证者生成，将会调用 slash contract，如果有gas fee，分发1/16 system reward contract 剩余的奖励验证者。<br>3、交易经过共识机制生成的交易必须和块中交易一致</li>
+</ul>
+<h3 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h3><h3 id="安全与最终性"><a href="#安全与最终性" class="headerlink" title="安全与最终性"></a>安全与最终性</h3><ul>
+<li>BC 鼓励用户一个块经过以下时间可保证安全和最终性（2n/3+1)<em>block time ,利用slashing logic 增强以后(n/2+1)</em>block time已经就可保证</li>
+</ul>
+<h2 id="创世"><a href="#创世" class="headerlink" title="创世"></a>创世</h2><h3 id="initialization"><a href="#initialization" class="headerlink" title="initialization"></a>initialization</h3><p>1、启动时必须有BNB在bsc<br>2、所有初始的验证者必须记录在bc</p>
+<h2 id="钱包"><a href="#钱包" class="headerlink" title="钱包"></a>钱包</h2><h3 id="similar-way-to-etherum，BIP39-，Binance-Ext-Wallet"><a href="#similar-way-to-etherum，BIP39-，Binance-Ext-Wallet" class="headerlink" title="similar way to etherum，BIP39 ，Binance Ext Wallet"></a>similar way to etherum，BIP39 ，Binance Ext Wallet</h3><h2 id="跨链"><a href="#跨链" class="headerlink" title="跨链"></a>跨链</h2><h3 id="system-contract"><a href="#system-contract" class="headerlink" title="system contract"></a>system contract</h3><h3 id="relayer："><a href="#relayer：" class="headerlink" title="relayer："></a>relayer：</h3><p>提交cross-chain  communication package</p>
+<ul>
+<li>bsc relayer：bc to bsc<br>1、可被任何人执行，独立进程<br>2、relayer必须在bsc注册，且存款质押BNB</li>
+<li>oracle module on bc: 验证bsc relayer传过来的交易</li>
+<li>oralce relayer : monitor 一些在bsc的事件，广播交易到bc上，relayer 需要有验证者的私钥权限，每个validator一个relayer服务</li>
+<li>激励机制：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/aranoverse/pic-host/main/img/bsc.png" alt="bsc"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/blockchain/" rel="tag"># blockchain</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/09/nvm-启动缓慢/" rel="next" title="nvm 启动缓慢">
+                <i class="fa fa-chevron-left"></i> nvm 启动缓慢
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/29/bsc-geth私有网络部署/" rel="prev" title="bsc parlia geth私有网络部署">
+                bsc parlia geth私有网络部署 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="阿冉">
+            
+              <p class="site-author-name" itemprop="name">阿冉</p>
+              <p class="site-description motion-element" itemprop="description">stay hungry,stay foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/aranoverse" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aranoverse@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#bsc"><span class="nav-number">1.</span> <span class="nav-text">bsc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#共识"><span class="nav-number">1.1.</span> <span class="nav-text">共识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标"><span class="nav-number">1.1.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实施"><span class="nav-number">1.1.2.</span> <span class="nav-text">实施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构"><span class="nav-number">1.1.3.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奖励分发：高度可配置"><span class="nav-number">1.1.4.</span> <span class="nav-text">奖励分发：高度可配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议：与clique协议类似（https-ethereum-magicians-org-t-eip-225-clique-proof-of-authority-consensus-protocol-1853）"><span class="nav-number">1.1.5.</span> <span class="nav-text">协议：与clique协议类似（https://ethereum-magicians.org/t/eip-225-clique-proof-of-authority-consensus-protocol/1853）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生新区块"><span class="nav-number">1.1.6.</span> <span class="nav-text">产生新区块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-中继-区块"><span class="nav-number">1.1.7.</span> <span class="nav-text">验证/中继 区块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#签名"><span class="nav-number">1.1.8.</span> <span class="nav-text">签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全与最终性"><span class="nav-number">1.1.9.</span> <span class="nav-text">安全与最终性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创世"><span class="nav-number">1.2.</span> <span class="nav-text">创世</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#initialization"><span class="nav-number">1.2.1.</span> <span class="nav-text">initialization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#钱包"><span class="nav-number">1.3.</span> <span class="nav-text">钱包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#similar-way-to-etherum，BIP39-，Binance-Ext-Wallet"><span class="nav-number">1.3.1.</span> <span class="nav-text">similar way to etherum，BIP39 ，Binance Ext Wallet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨链"><span class="nav-number">1.4.</span> <span class="nav-text">跨链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#system-contract"><span class="nav-number">1.4.1.</span> <span class="nav-text">system contract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relayer："><span class="nav-number">1.4.2.</span> <span class="nav-text">relayer：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿冉</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
