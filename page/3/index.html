@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/28/TCP_IP学习笔记（5）/">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/10/24/java虚拟机（1）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阿冉">
@@ -272,7 +272,134 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/28/TCP_IP学习笔记（5）/" itemprop="url">TCP/IP学习笔记（5）</a></h1>
+                <a class="post-title-link" href="/2018/10/24/java虚拟机（1）/" itemprop="url">java虚拟机运行数据区域</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-24T23:11:28+08:00">
+                2018-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          运行数据区程序计数器 （Program Counter Register）是一块较小的内存空间，可以看做是当前线程所执行的字节码的行号指示器。是线程私有的，如果正在执行的是native方法这个计数器值为空Undefined。这是java虚拟机规范中唯一没有规定任何OutOfMemory情况的区域。
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/24/java虚拟机（1）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/28/TCP_IP学习笔记（6）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿冉">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿冉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/28/TCP_IP学习笔记（6）/" itemprop="url">TCP/IP学习笔记（6）</a></h1>
         
 
         <div class="post-meta">
@@ -324,14 +451,12 @@
       
         
           
-          第六章 ICMP：Internet控制报文协议概述ICMP经常被认为是IP层的组成部分，他传递差错报文以及其他需要注意的信息， ICMP报文通常被IP层或者更高层次协议（TCP/UDP）使用，甚至返回给用户进程。
-ICMP报文是在IP数据报内部传输的
- 以下是ICMP报文格式  
-ICMP报文前4个
+          Ping程序概述ping程序是为了测试另一台主机是否可达。该程序发送一份ICMP回显报文交给主机，并且等待返回ICMP回显应答。Ping还提供了检测IP记录路由和时间戳选项的机会。
+Ping程序一般称发送回显请求的ping程序为客户，而被ping的主机为服务器。ICMP回显请求和回显应答报文如下 ：
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/28/TCP_IP学习笔记（5）/#more" rel="contents">
+            <a class="btn" href="/2018/09/28/TCP_IP学习笔记（6）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -511,7 +636,7 @@ ARP过程以FTP命令为例ftp XXX
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/28/TCP_IP学习笔记（6）/">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/28/TCP_IP学习笔记（5）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="阿冉">
@@ -530,7 +655,7 @@ ARP过程以FTP命令为例ftp XXX
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/28/TCP_IP学习笔记（6）/" itemprop="url">TCP/IP学习笔记（6）</a></h1>
+                <a class="post-title-link" href="/2018/09/28/TCP_IP学习笔记（5）/" itemprop="url">TCP/IP学习笔记（5）</a></h1>
         
 
         <div class="post-meta">
@@ -582,12 +707,14 @@ ARP过程以FTP命令为例ftp XXX
       
         
           
-          Ping程序概述ping程序是为了测试另一台主机是否可达。该程序发送一份ICMP回显报文交给主机，并且等待返回ICMP回显应答。Ping还提供了检测IP记录路由和时间戳选项的机会。
-Ping程序一般称发送回显请求的ping程序为客户，而被ping的主机为服务器。ICMP回显请求和回显应答报文如下 ：
+          第六章 ICMP：Internet控制报文协议概述ICMP经常被认为是IP层的组成部分，他传递差错报文以及其他需要注意的信息， ICMP报文通常被IP层或者更高层次协议（TCP/UDP）使用，甚至返回给用户进程。
+ICMP报文是在IP数据报内部传输的
+ 以下是ICMP报文格式  
+ICMP报文前4个
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/09/28/TCP_IP学习笔记（6）/#more" rel="contents">
+            <a class="btn" href="/2018/09/28/TCP_IP学习笔记（5）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1404,148 +1531,6 @@ OAuth允许用户提供一个令牌，作为授权许可，每个令牌授权一
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bloger.top/2018/09/02/入门Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="阿冉">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="阿冉">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/02/入门Android/" itemprop="url">入门Android</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T09:00:33+08:00">
-                2018-09-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-
-如果文章为转载文章，需要多加文章出处项
-首页每篇文章的子标题
-Android基础
-1. 系统架构
-2. Android 版本
-3. 组件
-3.1 Activity
-设置布局
-启动模式 (LaunchMode)
-生命周期
-启动Activity
-片段 (Fragment)
-
-
-3.2 Service
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/02/入门Android/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1598,7 +1583,7 @@ Android基础
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1673,7 +1658,7 @@ Android基础
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

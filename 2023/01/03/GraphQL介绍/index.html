@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="tech,graphql,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="GraphQL协议 schema即协议，通俗的来讲，可以类似rest openapi schema 客户端以及服务端根据schema通信，根据其定义进行校验约束 客户端在schema范围内可以自由获取（query）或者更新（mutation）需要的字段  1234567891011121314151617181920212223242526272829303132type Hero &amp;#123;">
+<meta name="keywords" content="tech,graphql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GraphQL介绍">
+<meta property="og:url" content="http://bloger.top/2023/01/03/GraphQL介绍/index.html">
+<meta property="og:site_name" content="阿冉">
+<meta property="og:description" content="GraphQL协议 schema即协议，通俗的来讲，可以类似rest openapi schema 客户端以及服务端根据schema通信，根据其定义进行校验约束 客户端在schema范围内可以自由获取（query）或者更新（mutation）需要的字段  1234567891011121314151617181920212223242526272829303132type Hero &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-01-04T03:50:39.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GraphQL介绍">
+<meta name="twitter:description" content="GraphQL协议 schema即协议，通俗的来讲，可以类似rest openapi schema 客户端以及服务端根据schema通信，根据其定义进行校验约束 客户端在schema范围内可以自由获取（query）或者更新（mutation）需要的字段  1234567891011121314151617181920212223242526272829303132type Hero &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bloger.top/2023/01/03/GraphQL介绍/">
+
+
+
+
+
+  <title>GraphQL介绍 | 阿冉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">阿冉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Arano's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bloger.top/2023/01/03/GraphQL介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="阿冉">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿冉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GraphQL介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-03T18:16:53+08:00">
+                2023-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/note/" itemprop="url" rel="index">
+                    <span itemprop="name">note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="GraphQL协议"><a href="#GraphQL协议" class="headerlink" title="GraphQL协议"></a>GraphQL协议</h2><ol>
+<li>schema即协议，通俗的来讲，可以类似rest openapi schema</li>
+<li>客户端以及服务端根据schema通信，根据其定义进行校验约束</li>
+<li>客户端在schema范围内可以自由获取（query）或者更新（mutation）需要的字段</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">type Hero &#123;</span><br><span class="line">    id:ID!</span><br><span class="line">    name :String</span><br><span class="line">    friends:[People]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Query&#123;</span><br><span class="line">    heroes:[Hero]</span><br><span class="line">    heroById(id:ID):Hero</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">heroes&#123;</span><br><span class="line">name </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data&#123;</span><br><span class="line">heroes: [&#123;name:&quot;A&quot;&#125;,&#123;name:&quot;B&quot;&#125;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Mutation&#123;</span><br><span class="line">updateHero(new:Hero!):Hero</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">updateHero&#123;</span><br><span class="line">id:1</span><br><span class="line">name:&quot;C&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data&#123;</span><br><span class="line">updateHero: &#123;id:1 , name:&quot;C&quot;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="需要关注的GraphQL-Java概念"><a href="#需要关注的GraphQL-Java概念" class="headerlink" title="需要关注的GraphQL Java概念"></a>需要关注的GraphQL Java概念</h2><ul>
+<li>DataFetcher 定义具体数据获取方式，可以是db，memory</li>
+<li>DataLoader 用于 1对n，数据关联查询，解决 n+1 查询问题，用key做了一些cache</li>
+</ul>
+<h2 id="对应SpringBoot以及Netflix-DGS-封装映射"><a href="#对应SpringBoot以及Netflix-DGS-封装映射" class="headerlink" title="对应SpringBoot以及Netflix DGS 封装映射"></a>对应SpringBoot以及Netflix DGS 封装映射</h2><p>Fetcher</p>
+<ul>
+<li>@Controller @MutationMapping @QueryMapping</li>
+<li>@DgsComponent @DgsMutation @DgsQuery</li>
+</ul>
+<p>Loader</p>
+<ul>
+<li>@SchemaMapping @BatchMapping</li>
+<li>@DgsData</li>
+</ul>
+<h2 id="原生GraphQL-SDK-demo"><a href="#原生GraphQL-SDK-demo" class="headerlink" title="原生GraphQL SDK demo"></a>原生GraphQL SDK demo</h2><ul>
+<li><a href="https://github.com/graphql-java/graphql-java-examples/blob/master/http-example/src/main/java/com/graphql/java/http/example/GraphQLProvider.java" target="_blank" rel="noopener">DataFetcher 定义</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> RuntimeWiring <span class="title">buildWiring</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> RuntimeWiring.newRuntimeWiring()</span><br><span class="line">    .type(newTypeWiring(<span class="string">"Query"</span>)</span><br><span class="line">    .dataFetcher(<span class="string">"hero"</span>,starWarsWiring.heroDataFetcher)</span><br><span class="line">    .dataFetcher(<span class="string">"human"</span>,starWarsWiring.humanDataFetcher)</span><br><span class="line">    .dataFetcher(<span class="string">"droid"</span>,starWarsWiring.droidDataFetcher)</span><br><span class="line">    )</span><br><span class="line">    .type(newTypeWiring(<span class="string">"Human"</span>)</span><br><span class="line">    .dataFetcher(<span class="string">"friends"</span>,starWarsWiring.friendsDataFetcher)</span><br><span class="line">    )</span><br><span class="line">    .type(newTypeWiring(<span class="string">"Droid"</span>)</span><br><span class="line">    .dataFetcher(<span class="string">"friends"</span>,starWarsWiring.friendsDataFetcher)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    .type(newTypeWiring(<span class="string">"Character"</span>)</span><br><span class="line">    .typeResolver(starWarsWiring.characterTypeResolver)</span><br><span class="line">    )</span><br><span class="line">    .type(newTypeWiring(<span class="string">"Episode"</span>)</span><br><span class="line">    .enumValues(starWarsWiring.episodeResolver)</span><br><span class="line">    )</span><br><span class="line">    .build();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/graphql-java/graphql-java-examples/blob/master/http-example/src/main/java/com/graphql/java/http/example/StarWarsWiring.java" target="_blank" rel="noopener">DataFetcher &amp; DataLoader 实现</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StarWarsWiring</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> DataLoaderRegistry dataLoaderRegistry;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StarWarsWiring</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dataLoaderRegistry = <span class="keyword">new</span> DataLoaderRegistry();</span><br><span class="line">        dataLoaderRegistry.register(<span class="string">"characters"</span>, newCharacterDataLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataLoaderRegistry <span class="title">getDataLoaderRegistry</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dataLoaderRegistry;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;Object&gt; <span class="title">getCharacterDataViaBatchHTTPApi</span><span class="params">(List&lt;String&gt; keys)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> keys.stream().map(StarWarsData::getCharacterData).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// a batch loader function that will be called with N or more keys for batch loading</span></span><br><span class="line">    <span class="keyword">private</span> BatchLoader&lt;String, Object&gt; characterBatchLoader = keys -&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// we are using multi threading here.  Imagine if getCharacterDataViaBatchHTTPApi was</span></span><br><span class="line">        <span class="comment">// actually a HTTP call - its not here - but it could be done asynchronously as</span></span><br><span class="line">        <span class="comment">// a batch API call say</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// direct return of values</span></span><br><span class="line">        <span class="comment">//CompletableFuture.completedFuture(getCharacterDataViaBatchHTTPApi(keys))</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// or</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">// async supply of values</span></span><br><span class="line">        <span class="keyword">return</span> CompletableFuture.supplyAsync(() -&gt; getCharacterDataViaBatchHTTPApi(keys));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// a data loader for characters that points to the character batch loader</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> DataLoader&lt;String, Object&gt; <span class="title">newCharacterDataLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataLoader&lt;&gt;(characterBatchLoader);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// we define the normal StarWars data fetchers so we can point them at our data loader</span></span><br><span class="line">    DataFetcher humanDataFetcher = environment -&gt; &#123;</span><br><span class="line">        String id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">        Context ctx = environment.getContext();</span><br><span class="line">        <span class="keyword">return</span> ctx.getCharacterDataLoader().load(id);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    DataFetcher droidDataFetcher = environment -&gt; &#123;</span><br><span class="line">        String id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">        Context ctx = environment.getContext();</span><br><span class="line">        <span class="keyword">return</span> ctx.getCharacterDataLoader().load(id);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    DataFetcher heroDataFetcher = environment -&gt; &#123;</span><br><span class="line">        Context ctx = environment.getContext();</span><br><span class="line">        <span class="keyword">return</span> ctx.getCharacterDataLoader().load(<span class="string">"2001"</span>); <span class="comment">// R2D2</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    DataFetcher friendsDataFetcher = environment -&gt; &#123;</span><br><span class="line">        FilmCharacter character = environment.getSource();</span><br><span class="line">        List&lt;String&gt; friendIds = character.getFriends();</span><br><span class="line">        Context ctx = environment.getContext();</span><br><span class="line">        <span class="keyword">return</span> ctx.getCharacterDataLoader().loadMany(friendIds);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-graphql" target="_blank" rel="noopener">https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-graphql</a></li>
+<li><a href="https://www.baeldung.com/spring-graphql" target="_blank" rel="noopener">https://www.baeldung.com/spring-graphql</a></li>
+<li><a href="https://www.baeldung.com/spring-graphql-error-handling" target="_blank" rel="noopener">https://www.baeldung.com/spring-graphql-error-handling</a></li>
+<li><a href="https://github.com/danvega/graphql-paging" target="_blank" rel="noopener">https://github.com/danvega/graphql-paging</a></li>
+<li><a href="https://github.com/danvega/graphql-store" target="_blank" rel="noopener">https://github.com/danvega/graphql-store</a></li>
+<li><a href="https://github.com/graphql-java/tutorials" target="_blank" rel="noopener">https://github.com/graphql-java/tutorials</a></li>
+<li><a href="https://tech.meituan.com/2021/05/06/bff-graphql.html" target="_blank" rel="noopener">https://tech.meituan.com/2021/05/06/bff-graphql.html</a></li>
+<li><a href="https://netflix.github.io/dgs/getting-started/" target="_blank" rel="noopener">https://netflix.github.io/dgs/getting-started/</a>*</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tech/" rel="tag"># tech</a>
+          
+            <a href="/tags/graphql/" rel="tag"># graphql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/12/30/research-summary/" rel="next" title="research-summary">
+                <i class="fa fa-chevron-left"></i> research-summary
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="阿冉">
+            
+              <p class="site-author-name" itemprop="name">阿冉</p>
+              <p class="site-description motion-element" itemprop="description">stay hungry,stay foolish</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/aranoverse" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aranoverse@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GraphQL协议"><span class="nav-number">1.</span> <span class="nav-text">GraphQL协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要关注的GraphQL-Java概念"><span class="nav-number">2.</span> <span class="nav-text">需要关注的GraphQL Java概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对应SpringBoot以及Netflix-DGS-封装映射"><span class="nav-number">3.</span> <span class="nav-text">对应SpringBoot以及Netflix DGS 封装映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生GraphQL-SDK-demo"><span class="nav-number">4.</span> <span class="nav-text">原生GraphQL SDK demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿冉</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
